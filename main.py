@@ -29,19 +29,16 @@ def run_game():
 
     status = GameStatus()
 
-    bullets = Group()
-    big_bullets = Group()
-
     aliens = Group()
     gf.create_fleet(screen, my_ship, aliens)
 
     while 1:
-        gf.deal_events(my_ship, screen, aliens, bullets, big_bullets, status, play_button)
+        gf.deal_events(my_ship, screen, aliens, status, play_button)
         if status.game_active:
-            gf.update_bullets(screen, my_ship, bullets, big_bullets, aliens)
+            gf.update_bullets(screen, my_ship, aliens)
             my_ship.update()
-            gf.update_aliens(screen, my_ship, aliens, bullets, big_bullets, status)
-        gf.update_screen(screen, my_ship, aliens, bullets, big_bullets, status, play_button)
+            gf.update_aliens(screen, my_ship, aliens, status)
+        gf.update_screen(screen, my_ship, aliens, status, play_button)
 
 if __name__ == '__main__':
     run_game()

@@ -33,9 +33,9 @@ class Bullet(Sprite):
         pygame.draw.rect(self.screen, self.color, self.rect)
 
 
-class Big_Bullet(Bullet):
+class Bomb(Bullet):
     def __init__(self, screen, ship):
-        super(Big_Bullet, self).__init__(screen, ship)
+        super(Bomb, self).__init__(screen, ship)
         self.rect = pygame.Rect(0, 0, 100*settings.bullet_width, settings.bullet_height)
         self.rect.centerx = self.ship.rect.centerx
         self.rect.top = self.ship.rect.top
