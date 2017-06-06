@@ -4,15 +4,14 @@
 @Time   : 2017/5/27 17:47
 @Author : yxz23
 '''
-import sys
 
 import pygame
 from pygame.sprite import Group
 
 import settings
 from ship import Ship
-from alien import Alien
 from game_status import GameStatus
+from scoreboard import ScoreBoard
 from button import Button
 import game_functions as gf
 
@@ -28,6 +27,7 @@ def run_game():
     my_ship = Ship(screen)
 
     status = GameStatus()
+    sb = ScoreBoard(screen, status)
 
     aliens = Group()
     gf.create_fleet(screen, my_ship, aliens)
@@ -35,10 +35,10 @@ def run_game():
     while 1:
         gf.deal_events(my_ship, screen, aliens, status, play_button)
         if status.game_active:
-            gf.update_bullets(screen, my_ship, aliens)
+            gf.update_bullets(screen, my_ship, aliens, status, sb)
             my_ship.update()
             gf.update_aliens(screen, my_ship, aliens, status)
-        gf.update_screen(screen, my_ship, aliens, status, play_button)
+        gf.update_screen(screen, my_ship, aliens, status, sb, play_button)
 
 if __name__ == '__main__':
     run_game()

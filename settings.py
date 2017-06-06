@@ -32,6 +32,7 @@ bullet_frequence = 35
 alien_speed = 0.5
 fleet_drop_speed = 10
 fleet_direction = 1
+alien_point = 10
 
 speedup_scale = 1.1
 

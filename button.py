@@ -7,8 +7,6 @@
 
 import pygame.font
 
-import settings
-
 
 class Button(object):
     def __init__(self, screen, msg):

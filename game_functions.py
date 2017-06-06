@@ -91,7 +91,7 @@ def deal_events(ship, screen, aliens, status, play_button):
             check_play_button(screen, ship, aliens, status, play_button, mouse_x, mouse_y)
 
 
-def update_screen(screen, ship, aliens, status, play_button):
+def update_screen(screen, ship, aliens, status, sb, play_button):
     screen.fill(settings.bg_color)
     for bullet in ship.bullets.sprites():
         bullet.draw_bullet()
@@ -99,15 +99,21 @@ def update_screen(screen, ship, aliens, status, play_button):
         bullet.draw_bullet()
     ship.blitme()
     aliens.draw(screen)
+    sb.show_score()
 
     if not status.game_active:
         play_button.draw_button()
     pygame.display.flip()
 
 
-def check_bullets_collisions(screen, ship, aliens):
+def check_bullets_collisions(screen, ship, aliens, status, sb):
     collisions = pygame.sprite.groupcollide(ship.bullets, aliens, True, True)
     big_collision = pygame.sprite.groupcollide(ship.bombs, aliens, False, True)
+
+    if collisions:
+        for aliens in collisions.values():
+            status.score += settings.alien_point*len(aliens)
+            sb.prep_score()
 
     if len(aliens) == 0:
         ship.bullets.empty()
@@ -115,7 +121,7 @@ def check_bullets_collisions(screen, ship, aliens):
         settings.increase_speed()
         create_fleet(screen, ship, aliens)
 
-def update_bullets(screen, ship, aliens):
+def update_bullets(screen, ship, aliens, status, sb):
     ship.bullets.update()
     ship.bombs.update()
     for bullet in ship.bullets.copy():
@@ -125,7 +131,7 @@ def update_bullets(screen, ship, aliens):
         if bullet.rect.bottom <= 0:
             ship.bombs.remove(bullet)
 
-    check_bullets_collisions(screen, ship, aliens)
+    check_bullets_collisions(screen, ship, aliens, status, sb)
 
 
 def change_fleet_direction(aliens):

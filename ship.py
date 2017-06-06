@@ -11,6 +11,7 @@ from pygame.sprite import Group
 from bullet import Bullet, Bomb
 import settings
 
+
 class Ship(object):
     def __init__(self, screen):
         self.screen = screen
@@ -43,8 +44,8 @@ class Ship(object):
     def blitme(self):
         self.screen.blit(self.image, self.rect)
 
-    def fire_bullet(self, is_common = True):
-        '''发射子弹'''
+    def fire_bullet(self, is_common=True):
+        """发射子弹"""
         if not self.enabale_fire:
             return
         if len(self.bullets) < settings.bullets_allowed and is_common:

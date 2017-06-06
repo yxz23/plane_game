@@ -15,4 +15,5 @@ class GameStatus(object):
 
     def reset_status(self):
         self.ships_left = settings.ship_limit
+        self.score = 0
 
